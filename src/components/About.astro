@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets'
+import aboutImage from '../assets/about-image.jpg'
+import romanClayGreen from '../assets/roman-clay-green.webp'
+---
+<section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
+    <div class="container">
+        <div class="about-body">
+            <h2 class="about__title">Aili Desai is a composer</h2>
+            <p>specializing in music for film, television and media. Aili is known for the emotional storytelling and character empathy present in her scores.</p>
+            <p>Aili started playing classical piano at the age of 6, and grew up listening to the music from both her parents’ generation and her own, including James Taylor, The Carpenters, Sara Bareilles, Norah Jones, Taylor Swift, OneRepublic, and others. In her teenage years, Aili developed an interest in songwriting.</p>
+            <p>In the early part of her career, she lived and worked in Nashville, where she was recognized by NSAI (Nashville Songwriters Association International) for excellence in songwriting. She became an involved member of the songwriting and music community, both as songwriter and working in the music touring business for several years. Aili worked for Level Group as a Touring Department Assistant, handling the logistics for multiple touring bands simultaneously. She also worked for Live Nation as a Production Runner, assisting the tour teams of major artists including Wiz Khalifa, Kendrick Lamar, Halsey, Train, and the Red Hot Chili Peppers.</p>
+            <p>Now working as a film and media composer, Aili’s unique background in songwriting and familiarity with pop music helps her write story-driven music that supports films and deeply resonates with audiences. She is currently working on a variety of personal composition projects, as well as a short film called Cycles of the Moon.</p>
+        </div>
+        <Image src={aboutImage} class="about__image" alt="Aili playing a piano from a side angle" height={640} />
+    </div>
+</section>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+
+    .about {
+        background-color: var(--clr-primary-200);
+        padding-block: 6rem;
+        position: relative;
+
+        .container {
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+
+        &::after {
+            @include m.pseudo-fill;
+            background-image: var(--about-bg);
+            opacity: 0.4;
+        }
+
+        &__title {
+            font-size: var(--font-700);
+            font-family: "Inria Serif";
+        }
+
+        &__image {
+            border-radius: var(--border-md);
+        }
+    }
+</style>

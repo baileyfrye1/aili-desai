@@ -1,0 +1,65 @@
+// Playfair Display
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/playfair-display-v40-latin-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/playfair-display-v40-latin-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/fonts/playfair-display-v40-latin-800.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/fonts/playfair-display-v40-latin-900.woff2") format("woff2");
+}
+
+// Inria Serif
+@font-face {
+  font-display: swap;
+  font-family: "Inria Serif";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/inria-serif-v18-latin-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Inria Serif";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/inria-serif-v18-latin-700.woff2") format("woff2");
+}
+
+// Roboto
+@font-face {
+  font-display: swap;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/roboto-v50-latin-regular.woff2") format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/roboto-v50-latin-700.woff2") format("woff2");
+}

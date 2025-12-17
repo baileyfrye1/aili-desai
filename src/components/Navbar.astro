@@ -1,0 +1,84 @@
+---
+import Instagram from '../assets/instagram-logo.svg'
+import { links } from '../utils/links';
+import MobileNav from './MobileNav.astro'
+---
+
+<nav class="nav">
+    <a href="/" class="nav__wordmark">Aili Desai</a>
+    <ul class="nav__links">
+        {links.map((link) => (
+        <li class="nav__link"><a href={link.href}>{link.label}</a></li>
+        ))}
+    </ul>
+    <div class="nav__social">
+        <a href="https://www.instagram.com/ailidesaimusic/?igsh=mtl4bwhvbme0cgsyeq%3D%3D" target="_blank" aria-label="Aili Desai Instagram"><Instagram /></a>
+    </div>
+    <MobileNav />
+</nav>
+<style lang="scss">
+    @use "../styles/global";
+    @use "../styles/mixins" as m;
+
+    .nav {
+        width: min(1440px, calc(100% - clamp(3rem, 16.3vw, 15rem)));
+        position: fixed;
+        top: 2rem;
+        left: 50%;
+        translate: -50% 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--clr-neutral-200);
+        padding: 0.75rem 2rem;
+        border-radius: var(--border-md);
+        transition: border-radius 0s 0.3s;
+        z-index: 2;
+
+        &__wordmark {
+            font-size: var(--font-500);
+            font-family: "Playfair Display";
+        }
+
+        &__links {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        &__social {
+            display: none;
+        }
+
+        &--active {
+            border-radius: var(--border-md) var(--border-md) 0 0;
+            transition: border-radius 0s 0s;
+        }
+    }
+
+    @include m.mq(medium) {
+        .nav {
+            &__links {
+                display: flex;
+            }
+
+            &__social {
+                display: block;
+            }
+        }
+    }
+</style>
+
+<script>
+    const hamburger = document.querySelector(".mobile");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const nav = document.querySelector(".nav")! as HTMLElement;
+
+    function handleClick() {
+        const isOpen = hamburger?.getAttribute("aria-expanded") === "true";
+        hamburger?.setAttribute("aria-expanded", `${!isOpen}`);
+        mobileMenu?.classList.toggle("mobile-menu--active");
+        nav.classList.toggle("nav--active");
+    }
+
+    hamburger?.addEventListener("click", handleClick);
+</script>

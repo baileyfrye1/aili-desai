@@ -1,0 +1,21 @@
+---
+import romanClayGreen from '../assets/roman-clay-green.webp'
+---
+
+<section id="contact" class="contact" style={{"--contact-bg": `url(${romanClayGreen.src})`}}></section>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+
+    .contact {
+        background-color: var(--clr-primary-200);
+        padding-block: 6rem;
+        position: relative;
+
+        &::after {
+            @include m.pseudo-fill;
+            background-image: var(--contact-bg);
+            opacity: 0.6;
+        }
+    }
+</style>

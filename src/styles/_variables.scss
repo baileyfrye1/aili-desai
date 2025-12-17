@@ -1,0 +1,38 @@
+$colors: (
+  primary: (
+    200: #8f9779,
+    500: #52593e,
+  ),
+  accent: (
+    200: #5f91ba,
+    400: #819aaf,
+  ),
+  neutral: (
+    100: #fdfdfd,
+    200: #e9e3d9,
+  ),
+  dark: (
+    700: #2d2b2b,
+  ),
+);
+
+$breakpoints: (
+  small: 40em,
+  medium: 51em,
+  large: 65em,
+);
+
+$border-radii: (
+  sm: 0.75rem,
+  md: 1.25rem,
+  lg: 2.5rem,
+);
+
+$font-sizes: (
+  300: 1rem,
+  400: 1.25rem,
+  500: 1.5rem,
+  600: 2rem,
+  700: 3rem,
+  800: 4rem,
+);

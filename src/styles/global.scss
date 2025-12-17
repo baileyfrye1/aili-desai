@@ -1,0 +1,29 @@
+@use "reset";
+@use "fonts";
+@use "variables" as v;
+
+:root {
+  // Create color custom properties
+  @each $color, $shades in v.$colors {
+    @each $strength, $value in $shades {
+      --clr-#{$color}-#{$strength}: #{$value};
+    }
+  }
+
+  // Create border radius custom properties
+  @each $size, $value in v.$border-radii {
+    --border-#{$size}: #{$value};
+  }
+
+  // Create font size custom properties
+  @each $size, $value in v.$font-sizes {
+    --font-#{$size}: #{$value};
+  }
+}
+
+.container {
+  height: 100%;
+  width: min(1280px, 100% - 3rem);
+  margin-inline: auto;
+  overflow: hidden;
+}
