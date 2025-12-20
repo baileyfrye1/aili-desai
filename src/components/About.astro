@@ -2,11 +2,13 @@
 import { Image } from 'astro:assets'
 import aboutImage from '../assets/about-image.jpg'
 import romanClayGreen from '../assets/roman-clay-green.webp'
+import Wave from '../assets/wave.svg';
 ---
 <section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
     <div class="container">
-        <div class="about-body">
-            <h2 class="about__title">Aili Desai is a composer</h2>
+        <div class="about-body flow">
+            <h2 class="about__title">Aili Desai is a</h2>
+            <h2 class="about__title">composer</h2>
             <p>specializing in music for film, television and media. Aili is known for the emotional storytelling and character empathy present in her scores.</p>
             <p>Aili started playing classical piano at the age of 6, and grew up listening to the music from both her parents’ generation and her own, including James Taylor, The Carpenters, Sara Bareilles, Norah Jones, Taylor Swift, OneRepublic, and others. In her teenage years, Aili developed an interest in songwriting.</p>
             <p>In the early part of her career, she lived and worked in Nashville, where she was recognized by NSAI (Nashville Songwriters Association International) for excellence in songwriting. She became an involved member of the songwriting and music community, both as songwriter and working in the music touring business for several years. Aili worked for Level Group as a Touring Department Assistant, handling the logistics for multiple touring bands simultaneously. She also worked for Live Nation as a Production Runner, assisting the tour teams of major artists including Wiz Khalifa, Kendrick Lamar, Halsey, Train, and the Red Hot Chili Peppers.</p>
@@ -14,6 +16,7 @@ import romanClayGreen from '../assets/roman-clay-green.webp'
         </div>
         <Image src={aboutImage} class="about__image" alt="Aili playing a piano from a side angle" height={640} />
     </div>
+    <Wave class="wave" />
 </section>
 
 <style lang="scss">
@@ -21,13 +24,15 @@ import romanClayGreen from '../assets/roman-clay-green.webp'
 
     .about {
         background-color: var(--clr-primary-200);
-        padding-block: 6rem;
+        padding: 6rem 0 15.3125rem 0;
         position: relative;
 
         .container {
             display: flex;
+            flex-direction: column;
             position: relative;
             z-index: 1;
+            gap: 7rem;
         }
 
         &::after {
@@ -37,12 +42,61 @@ import romanClayGreen from '../assets/roman-clay-green.webp'
         }
 
         &__title {
-            font-size: var(--font-700);
+            font-size: var(--font-800);
             font-family: "Inria Serif";
+            position: relative;
+            display: inline-block;
+
+            &:nth-child(2) {
+                margin-bottom: 1.5rem;
+                &::after {
+                    transition: width 1s 0.3s;
+                }
+            }
+
+            &::after {
+                content: "";
+                height: 3px;
+                width: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: var(--clr-neutral-100);
+                transition: width 1s;
+            }
+
+            &--active::after {
+                width: 100%;
+            }
         }
 
         &__image {
             border-radius: var(--border-md);
         }
     }
+
+    @include m.mq(small) {
+        .about {
+            .container {
+                flex-direction: row;
+            }
+        }
+    }
 </style>
+
+<script>
+    const [aboutTitleTop, aboutTitleBottom] = document.querySelectorAll(".about__title") as NodeListOf<HTMLElement>;
+
+    function isInView(element: HTMLElement): boolean {
+        const rect = element.getBoundingClientRect();
+
+        return rect.bottom > 0 && rect.top < (window.innerHeight - 200);
+    }
+
+    document.addEventListener("scroll", () => {
+        if (isInView(aboutTitleBottom)) {
+            aboutTitleTop.classList.add("about__title--active");
+            aboutTitleBottom.classList.add("about__title--active");
+        }
+    })
+</script>

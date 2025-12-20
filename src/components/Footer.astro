@@ -1,4 +1,60 @@
-<footer>
+---
+import { links } from "../utils/links";
+import Instagram from '../assets/instagram-logo.svg'
+---
+
+<footer class="footer">
+    <div class="container">
+        <a href="#hero" class="footer__wordmark">Aili Desai</a>
+        <ul class="footer__links">
+            {links.map((link) => (
+            <li class="footer__link"><a href={link.href}>{link.label}</a></li>
+            ))}
+        </ul>
+        <a href="https://www.instagram.com/ailidesaimusic/?igsh=mtl4bwhvbme0cgsyeq%3D%3D"><Instagram class="footer__social" /></a>
+    </div>
 </footer>
 
-<style lang="scss"></style>
+<style lang="scss">
+    .footer {
+        background-color: var(--clr-dark-700);
+        padding-block: 4rem;
+        color: var(--clr-neutral-100);
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__wordmark {
+            font-family: "Playfair Display";
+            font-size: var(--font-500);
+        }
+
+        &__links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            .footer__link {
+                transition: opacity 0.3s;
+                
+                &:hover {
+                    opacity: 0.75;
+                }
+            }
+        }
+        
+        &__social {
+            fill: var(--clr-neutral-100);
+            transition: opacity 0.3s;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+    }
+</style>

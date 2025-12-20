@@ -1,0 +1,74 @@
+<form class="contact__form flow">
+    <h4 class="form__title">Send a Message</h4>
+    <div class="form__group">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form__input" />
+    </div>
+    <div class="form__group">
+        <label for="email">Email</label>
+        <input type="text" name="email" class="form__input" />
+    </div>
+    <div class="form__group">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" class="form__input form__message" />
+    </div>
+    <button type="submit" class="form__button">Send Message</button>
+</form>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+    @use "sass:color";
+
+    .contact__form {
+        padding: 2rem;
+        background-color: var(--clr-neutral-200);
+        margin-top: 3rem;
+        border-radius: var(--border-md);
+        width: 100%;
+    }
+
+    .form {
+        &__title {
+            font-family: "Inria Serif";
+            font-size: var(--font-500);
+            margin-bottom: 1.5rem;
+        }
+
+        &__group {
+            display: flex;
+            flex-direction: column;
+
+            .form__input {
+                border: 1px solid var(--clr-dark-700);
+                border-radius: var(--border-sm);
+                padding: 0.5rem;
+                height: 3rem;
+            }
+
+            .form__message {
+                height: 6rem;
+            }
+        }
+
+        &__button {
+            background-color: var(--clr-dark-700);
+            color: var(--clr-neutral-100);
+            width: 100%;
+            padding-block: 1rem;
+            border-radius: var(--border-sm);
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: color.adjust(#2d2b2b, $lightness: 10%);
+            }
+        }
+    }
+
+    @include m.mq(small) {
+        .contact__form {
+            width: 60%;
+        }
+    }
+</style>

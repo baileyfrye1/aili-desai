@@ -2,7 +2,8 @@
 import romanClayCream from '../assets/roman-clay-cream.webp'
 ---
 
-<section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}></section>
+<section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
+</section>
 
 <style lang="scss">
     @use "../styles/mixins" as m;
@@ -16,6 +17,7 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
             @include m.pseudo-fill;
             background-image: var(--music-bg);
             opacity: 0.6;
+            background-position: top;
         }
     }
 </style>

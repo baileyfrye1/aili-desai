@@ -1,21 +1,71 @@
 ---
 import romanClayGreen from '../assets/roman-clay-green.webp'
+import Wave from '../assets/wave.svg';
+import ContactForm from './ContactForm.astro';
 ---
 
-<section id="contact" class="contact" style={{"--contact-bg": `url(${romanClayGreen.src})`}}></section>
+<section id="contact" class="contact" style={{"--contact-bg": `url(${romanClayGreen.src})`}}>
+    <Wave class="wave wave--flipped" />
+    <div class="container">
+        <h3 class="contact__title">Get in Touch</h3>
+        <ContactForm />
+    </div>
+</section>
 
 <style lang="scss">
     @use "../styles/mixins" as m;
 
     .contact {
         background-color: var(--clr-primary-200);
-        padding-block: 6rem;
+        padding: 15.3125rem 0 6rem 0;
         position: relative;
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding-inline: 0;
+        }
+
+        &__title {
+            font-size: var(--font-700);
+            font-family: "Inria Serif";
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                height: 2px;
+                width: 6rem;
+                left: 50%;
+                bottom: 0;
+                translate: -50%;
+                display: block;
+                background-color: var(--clr-neutral-200);
+            }
+        }
 
         &::after {
             @include m.pseudo-fill;
             background-image: var(--contact-bg);
             opacity: 0.6;
+        }
+    }
+
+    .wave--flipped {
+        top: -1px;
+        bottom: 0;
+        transform: rotate(180deg);
+    }
+
+    @include m.mq(small) {
+        .contact {
+            .container {
+                padding-inline: 1.5rem;
+            }
         }
     }
 </style>

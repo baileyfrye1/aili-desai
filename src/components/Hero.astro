@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import heroImage from '../assets/hero-image.jpg'
 ---
-<section class="hero">
-    <Image src={heroImage} alt="Aili playing a piano" class="hero__image" />
+<section id="hero" class="hero">
+    <Image src={heroImage} alt="Aili playing a piano" class="hero__image" loading="eager" />
 </section>
 
 <style lang="scss">

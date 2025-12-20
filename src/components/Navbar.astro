@@ -5,7 +5,7 @@ import MobileNav from './MobileNav.astro'
 ---
 
 <nav class="nav">
-    <a href="/" class="nav__wordmark">Aili Desai</a>
+    <a href="#hero" class="nav__wordmark">Aili Desai</a>
     <ul class="nav__links">
         {links.map((link) => (
         <li class="nav__link"><a href={link.href}>{link.label}</a></li>
@@ -21,7 +21,7 @@ import MobileNav from './MobileNav.astro'
     @use "../styles/mixins" as m;
 
     .nav {
-        width: min(1440px, calc(100% - clamp(3rem, 16.3vw, 15rem)));
+        width: min(1400px, calc(100% - clamp(3rem, 16.3vw, 15rem)));
         position: fixed;
         top: 2rem;
         left: 50%;
@@ -34,6 +34,7 @@ import MobileNav from './MobileNav.astro'
         border-radius: var(--border-md);
         transition: border-radius 0s 0.3s;
         z-index: 2;
+        transition: width 0.3s;
 
         &__wordmark {
             font-size: var(--font-500);
@@ -43,10 +44,23 @@ import MobileNav from './MobileNav.astro'
         &__links {
             display: none;
             gap: 1.5rem;
+
+            .nav__link {
+                transition: opacity 0.3s;
+
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
         }
 
         &__social {
             display: none;
+            transition: opacity 0.3s;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
 
         &--active {
@@ -79,6 +93,14 @@ import MobileNav from './MobileNav.astro'
         mobileMenu?.classList.toggle("mobile-menu--active");
         nav.classList.toggle("nav--active");
     }
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 0) {
+            nav.style.width = "min(800px, calc(100% - clamp(3rem, 16.3vw, 15rem)))";
+        } else {
+            nav.style.width = "min(1400px, calc(100% - clamp(3rem, 16.3vw, 15rem)))";
+        }
+    })
 
     hamburger?.addEventListener("click", handleClick);
 </script>

@@ -1,6 +1,7 @@
 @use "reset";
 @use "fonts";
 @use "variables" as v;
+@use "mixins" as m;
 
 :root {
   // Create color custom properties
@@ -24,6 +25,20 @@
 .container {
   height: 100%;
   width: min(1280px, 100% - 3rem);
+  padding-inline: 1.5rem;
   margin-inline: auto;
   overflow: hidden;
+}
+
+.flow > p + p,
+.flow > .form__group + .form__group {
+  margin-top: 0.75em;
+}
+
+.wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
 }
