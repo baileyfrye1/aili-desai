@@ -7,8 +7,8 @@ import Wave from '../assets/wave.svg';
 <section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
     <div class="container">
         <div class="about-body flow">
-            <h2 class="about__title">Aili Desai is a</h2>
-            <h2 class="about__title">composer</h2>
+            <h1 class="about__title">Aili Desai is a</h2>
+            <h1 class="about__title">composer</h2>
             <p>specializing in music for film, television and media. Aili is known for the emotional storytelling and character empathy present in her scores.</p>
             <p>Aili started playing classical piano at the age of 6, and grew up listening to the music from both her parents’ generation and her own, including James Taylor, The Carpenters, Sara Bareilles, Norah Jones, Taylor Swift, OneRepublic, and others. In her teenage years, Aili developed an interest in songwriting.</p>
             <p>In the early part of her career, she lived and worked in Nashville, where she was recognized by NSAI (Nashville Songwriters Association International) for excellence in songwriting. She became an involved member of the songwriting and music community, both as songwriter and working in the music touring business for several years. Aili worked for Level Group as a Touring Department Assistant, handling the logistics for multiple touring bands simultaneously. She also worked for Live Nation as a Production Runner, assisting the tour teams of major artists including Wiz Khalifa, Kendrick Lamar, Halsey, Train, and the Red Hot Chili Peppers.</p>
@@ -24,7 +24,7 @@ import Wave from '../assets/wave.svg';
 
     .about {
         background-color: var(--clr-primary-200);
-        padding: 6rem 0 15.3125rem 0;
+        padding: 6rem 0 10rem 0;
         position: relative;
 
         .container {
@@ -75,6 +75,7 @@ import Wave from '../assets/wave.svg';
 
     @include m.mq(small) {
         .about {
+            padding: 6rem 0 15.3125rem 0;
             .container {
                 flex-direction: row;
                 gap: 7rem;

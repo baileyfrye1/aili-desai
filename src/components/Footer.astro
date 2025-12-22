@@ -39,9 +39,9 @@ import Instagram from '../assets/instagram-logo.svg'
         &__links {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
 
             .footer__link {
                 transition: opacity 0.3s;
@@ -66,6 +66,12 @@ import Instagram from '../assets/instagram-logo.svg'
         .footer {
             .container {
                 flex-direction: row;
+                align-items: center;
+            }
+
+            &__links {
+                align-items: center;
+                gap: 1rem;
             }
         }
     }
