@@ -16,6 +16,8 @@ import Instagram from '../assets/instagram-logo.svg'
 </footer>
 
 <style lang="scss">
+    @use "../styles/mixins" as m;
+
     .footer {
         background-color: var(--clr-dark-700);
         padding-block: 4rem;
@@ -24,7 +26,9 @@ import Instagram from '../assets/instagram-logo.svg'
         .container {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 4rem;
         }
 
         &__wordmark {
@@ -54,6 +58,14 @@ import Instagram from '../assets/instagram-logo.svg'
 
             &:hover {
                 opacity: 0.75;
+            }
+        }
+    }
+
+    @include m.mq(small) {
+        .footer {
+            .container {
+                flex-direction: row;
             }
         }
     }

@@ -30,7 +30,7 @@ import Wave from '../assets/wave.svg';
         .container {
             display: flex;
             flex-direction: column;
-            gap: 7rem;
+            gap: 4rem;
         }
 
         &::after {
@@ -40,7 +40,7 @@ import Wave from '../assets/wave.svg';
         }
 
         &__title {
-            font-size: var(--font-800);
+            font-size: var(--font-700);
             font-family: "Inria Serif";
             position: relative;
             display: inline-block;
@@ -77,6 +77,11 @@ import Wave from '../assets/wave.svg';
         .about {
             .container {
                 flex-direction: row;
+                gap: 7rem;
+            }
+
+            &__title {
+                font-size: var(--font-800);
             }
         }
     }

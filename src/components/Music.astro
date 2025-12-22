@@ -56,7 +56,7 @@ import Play from '../assets/play.svg';
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem 7rem;
+            padding: 2rem;
 
             &__title {
                 color: var(--clr-neutral-100);
@@ -72,7 +72,7 @@ import Play from '../assets/play.svg';
                 width: 100%;
 
                 .music-player__control {
-                    width: 4rem;
+                    width: 3rem;
                     cursor: pointer;
 
                     svg {
@@ -83,8 +83,7 @@ import Play from '../assets/play.svg';
                         border: 1px solid var(--clr-accent-200);
                         background-color: rgba(95, 145, 186, 0.15);
                         padding: 2rem;
-                        height: 9rem;
-                        width: 9rem;
+                        width: 7rem;
                         border-radius: 100%;
                         display: grid;
                         place-items: center;
@@ -114,7 +113,7 @@ import Play from '../assets/play.svg';
                 margin-top: 2rem;
 
                 .music-player__progress-container {
-                    height: 0.5rem;
+                    height: 0.75rem;
                     border-radius: var(--border-lg);
                     background-color: var(--clr-neutral-200);
                     width: 100%;
@@ -122,22 +121,47 @@ import Play from '../assets/play.svg';
                     transition: height 0.2s;
                     cursor: pointer;
 
-                    &:hover {
-                        height: 1rem;
-                    }
-
                     .music-player__progress-bar {
                         width: 0;
                         height: 100%;
                         background-color: color.adjust(#5f91ba, $lightness: 15%);
                         border-radius: var(--border-lg);
-                        transition: width 1s;
+                        // transition: width 1s;
                     }
                 }
 
                 .music-player__duration {
                     color: var(--clr-neutral-100);
                     margin: 0.5rem 0 0 0.5rem;
+                }
+            }
+        }
+    }
+
+    @include m.mq(small) {
+        .music {
+            &-player {
+                padding: 2rem 7rem;
+
+                &__controls {
+                    .music-player__control {
+                        width: 4rem;
+
+                        &--play-toggle {
+                            width: 9rem;
+                        }
+                    }
+                }
+
+                &__timeline {
+                    .music-player__progress-container {
+                        height: 0.5rem;
+                        transition: height 0.2s;
+
+                        &:hover {
+                            height: 1rem;
+                        }
+                    }
                 }
             }
         }
@@ -198,6 +222,13 @@ import Play from '../assets/play.svg';
     })
 
     prevBtn.addEventListener("click", () => {
+        if (audio.currentTime > 5) {
+            audio.currentTime = 0;
+            setTimeUI(audio.currentTime, audio.duration)
+
+            return;
+        }
+
         if (playBtn.classList.contains("is-playing")) {
             playIcon.src = "/src/assets/play.svg";
             playBtn.classList.remove("is-playing");
@@ -207,13 +238,8 @@ import Play from '../assets/play.svg';
     })
 
     audio.addEventListener("timeupdate", () => {
-        const formattedCurrentTime = rawSecondsToTime(audio.currentTime);
-        const formattedTotalTime = rawSecondsToTime(audio.duration);
-
         if (playBtn.classList.contains("is-playing")) {
-            progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
-            currentTime.innerText = formattedCurrentTime;
-            totalTime.innerText = formattedTotalTime;
+            setTimeUI(audio.currentTime, audio.duration)
         }
     })
 
@@ -223,6 +249,7 @@ import Play from '../assets/play.svg';
         const duration = audio.duration;
 
         audio.currentTime = (clickX / width) * duration;
+        setTimeUI(audio.currentTime, audio.duration)
     })
 
     function setSong(i: number) {
@@ -241,6 +268,15 @@ import Play from '../assets/play.svg';
 
         const formattedSeconds = seconds < 10 ? `0${seconds}` : String(seconds);
         return `${minutes}:${formattedSeconds}`
+    }
+
+    function setTimeUI(current: number, duration: number): void {
+        const formattedCurrentTime = rawSecondsToTime(current);
+        const formattedTotalTime = rawSecondsToTime(duration);
+
+        progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+        currentTime.innerText = formattedCurrentTime;
+        totalTime.innerText = formattedTotalTime;
     }
 </script>
 
