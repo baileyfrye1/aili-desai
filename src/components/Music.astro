@@ -2,7 +2,8 @@
 import romanClayCream from "../assets/roman-clay-cream.webp"
 import ChevronLeft from "../assets/chevron-left.svg";
 import ChevronRight from "../assets/chevron-right.svg";
-import Play from '../assets/play.svg';
+import Play from "../assets/play.svg";
+import Pause from "../assets/pause.svg";
 ---
 
 <section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
@@ -14,7 +15,8 @@ import Play from '../assets/play.svg';
                     <ChevronLeft />
                 </button>
                 <button class="music-player__control--play-toggle">
-                    <img class="music-player__control--playback-icon" src={Play.src} alt="Play / Pause button">
+                    <img class="music-player__control--play-icon" src={Play.src} alt="Play button">
+                    <img class="music-player__control--pause-icon" hidden src={Pause.src} alt="Pause button">
                 </button>
                 <button class="music-player__control music-player__control--next">
                     <ChevronRight />
@@ -176,7 +178,8 @@ import Play from '../assets/play.svg';
 
     const prevBtn = document.querySelector(".music-player__control--prev") as HTMLButtonElement;
     const playBtn = document.querySelector(".music-player__control--play-toggle") as HTMLButtonElement;
-    const playIcon = document.querySelector(".music-player__control--playback-icon") as HTMLImageElement;
+    const playIcon = document.querySelector(".music-player__control--play-icon") as HTMLImageElement;
+    const pauseIcon = document.querySelector(".music-player__control--pause-icon") as HTMLImageElement;
     const nextBtn = document.querySelector(".music-player__control--next") as HTMLButtonElement;
     const progressContainer = document.querySelector(".music-player__progress-container") as HTMLDivElement;
     const progressBar = document.querySelector(".music-player__progress-bar") as HTMLDivElement;
@@ -198,7 +201,8 @@ import Play from '../assets/play.svg';
 
     playBtn?.addEventListener("click", () => {
         if (playBtn.classList.contains("is-playing")) {
-            playIcon.src = "/src/assets/play.svg";
+            playIcon.hidden = false;
+            pauseIcon.hidden = true;
             playBtn.classList.remove("is-playing");
 
             audio.pause();
@@ -206,7 +210,8 @@ import Play from '../assets/play.svg';
             return;
         }
 
-        playIcon.src = "/src/assets/pause.svg";
+        playIcon.hidden = true;
+        pauseIcon.hidden = false;
         playBtn.classList.add("is-playing");
 
         audio.play();
