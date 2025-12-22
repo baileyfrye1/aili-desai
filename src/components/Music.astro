@@ -43,6 +43,10 @@ import Pause from "../assets/pause.svg";
         padding-block: 6rem;
         position: relative;
 
+        .container {
+            padding-inline: 0;
+        }
+
         &::after {
             @include m.pseudo-fill;
             background-image: var(--music-bg);
@@ -143,7 +147,9 @@ import Pause from "../assets/pause.svg";
     @include m.mq(small) {
         .music {
             &-player {
+                width: 80%;
                 padding: 2rem 7rem;
+                margin-inline: auto;
 
                 &__controls {
                     .music-player__control {
