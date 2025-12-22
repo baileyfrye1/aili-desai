@@ -69,6 +69,12 @@ import MobileNav from './MobileNav.astro'
         }
     }
 
+    @media (prefers-reduced-motion: reduced) {
+        .nav {
+            width: min(800px, calc(100% - clamp(3rem, 16.3vw, 15rem)));
+        }
+    }
+
     @include m.mq(medium) {
         .nav {
             &__links {

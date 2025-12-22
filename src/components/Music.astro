@@ -1,12 +1,40 @@
 ---
-import romanClayCream from '../assets/roman-clay-cream.webp'
+import romanClayCream from "../assets/roman-clay-cream.webp"
+import ChevronLeft from "../assets/chevron-left.svg";
+import ChevronRight from "../assets/chevron-right.svg";
+import Play from '../assets/play.svg';
 ---
 
 <section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
+    <div class="container">
+        <div class="music-player">
+            <h3 class="music-player__title">Music</h3>
+            <div class="music-player__controls">
+                <button class="music-player__control music-player__control--prev">
+                    <ChevronLeft />
+                </button>
+                <button class="music-player__control--play-toggle">
+                    <img class="music-player__control--playback-icon" src={Play.src} alt="Play / Pause button">
+                </button>
+                <button class="music-player__control music-player__control--next">
+                    <ChevronRight />
+                </button>
+            </div>
+            <audio src="/music/defeat.mp3" class="music-player__audio"></audio>
+            <h4 class="music-player__track-title">Before The Battle</h4>
+            <div class="music-player__timeline">
+                <div class="music-player__progress-container">
+                    <div class="music-player__progress-bar"></div>
+                </div>
+                <p class="music-player__duration"><span class="music-player__current-time">-:--</span> / <span class="music-player__total-time">-:--</span></p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <style lang="scss">
     @use "../styles/mixins" as m;
+    @use "sass:color";
 
     .music {
         background-color: var(--clr-neutral-200);
@@ -19,5 +47,200 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
             opacity: 0.6;
             background-position: top;
         }
+
+        &-player {
+            border-radius: var(--border-lg);
+            background-image: url('../assets/piano.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 7rem;
+
+            &__title {
+                color: var(--clr-neutral-100);
+                font-family: "Inria Serif";
+                font-size: var(--font-700);
+            }
+
+            &__controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 4rem;
+                width: 100%;
+
+                .music-player__control {
+                    width: 4rem;
+                    cursor: pointer;
+
+                    svg {
+                        fill: var(--clr-neutral-100);
+                    }
+
+                    &--play-toggle {
+                        border: 1px solid var(--clr-accent-200);
+                        background-color: rgba(95, 145, 186, 0.15);
+                        padding: 2rem;
+                        height: 9rem;
+                        width: 9rem;
+                        border-radius: 100%;
+                        display: grid;
+                        place-items: center;
+                        transition: background-color 0.3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: rgba(95, 145, 186, 0.30);
+                        }
+
+                        svg {
+                            fill: var(--clr-accent-200);
+                        }
+                    }
+                }
+            }
+
+            &__track-title {
+                color: var(--clr-neutral-100);
+                font-family: "Playfair Display";
+                margin-top: 2rem;
+                font-size: var(--font-600);
+            }
+
+            &__timeline {
+                width: 100%;
+                margin-top: 2rem;
+
+                .music-player__progress-container {
+                    height: 0.5rem;
+                    border-radius: var(--border-lg);
+                    background-color: var(--clr-neutral-200);
+                    width: 100%;
+                    overflow: hidden;
+                    transition: height 0.2s;
+                    cursor: pointer;
+
+                    &:hover {
+                        height: 1rem;
+                    }
+
+                    .music-player__progress-bar {
+                        width: 0;
+                        height: 100%;
+                        background-color: color.adjust(#5f91ba, $lightness: 15%);
+                        border-radius: var(--border-lg);
+                        transition: width 1s;
+                    }
+                }
+
+                .music-player__duration {
+                    color: var(--clr-neutral-100);
+                    margin: 0.5rem 0 0 0.5rem;
+                }
+            }
+        }
     }
 </style>
+
+<script>
+    type tracksList = {
+        title: string,
+        url: string
+    }[]
+
+    const prevBtn = document.querySelector(".music-player__control--prev") as HTMLButtonElement;
+    const playBtn = document.querySelector(".music-player__control--play-toggle") as HTMLButtonElement;
+    const playIcon = document.querySelector(".music-player__control--playback-icon") as HTMLImageElement;
+    const nextBtn = document.querySelector(".music-player__control--next") as HTMLButtonElement;
+    const progressContainer = document.querySelector(".music-player__progress-container") as HTMLDivElement;
+    const progressBar = document.querySelector(".music-player__progress-bar") as HTMLDivElement;
+    const currentTime = document.querySelector(".music-player__current-time") as HTMLSpanElement;
+
+    const totalTime = document.querySelector(".music-player__total-time") as HTMLSpanElement;
+    const trackTitle = document.querySelector(".music-player__track-title") as HTMLHeadingElement;
+    const audio = document.querySelector(".music-player__audio") as HTMLAudioElement;
+
+    let tracks: tracksList = [];
+    let index = 0;
+
+
+    (async() => {
+        const res = await fetch("/api/tracks.json");
+        tracks = await res.json();
+        if (tracks.length) setSong(index);
+    })()
+
+    playBtn?.addEventListener("click", () => {
+        if (playBtn.classList.contains("is-playing")) {
+            playIcon.src = "/src/assets/play.svg";
+            playBtn.classList.remove("is-playing");
+
+            audio.pause();
+
+            return;
+        }
+
+        playIcon.src = "/src/assets/pause.svg";
+        playBtn.classList.add("is-playing");
+
+        audio.play();
+    })
+
+    nextBtn.addEventListener("click", () => {
+        if (playBtn.classList.contains("is-playing")) {
+            playIcon.src = "/src/assets/play.svg";
+            playBtn.classList.remove("is-playing");
+        }
+
+        setSong(index + 1);
+    })
+
+    prevBtn.addEventListener("click", () => {
+        if (playBtn.classList.contains("is-playing")) {
+            playIcon.src = "/src/assets/play.svg";
+            playBtn.classList.remove("is-playing");
+        }
+
+        setSong(index - 1);
+    })
+
+    audio.addEventListener("timeupdate", () => {
+        const formattedCurrentTime = rawSecondsToTime(audio.currentTime);
+        const formattedTotalTime = rawSecondsToTime(audio.duration);
+
+        if (playBtn.classList.contains("is-playing")) {
+            progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            currentTime.innerText = formattedCurrentTime;
+            totalTime.innerText = formattedTotalTime;
+        }
+    })
+
+    progressContainer.addEventListener("click", (e) => {
+        const width = (e.currentTarget as HTMLDivElement).offsetWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+
+        audio.currentTime = (clickX / width) * duration;
+    })
+
+    function setSong(i: number) {
+        index = (i + tracks.length) % tracks.length;
+
+        audio.src = tracks[index].url;
+        trackTitle.innerText = tracks[index].title;
+        totalTime.innerText = "-:--";
+        currentTime.innerText = "-:--";
+        progressBar.style.width = "0";
+    }
+
+    function rawSecondsToTime(rawSeconds: number): string {
+        const minutes = Math.floor(rawSeconds / 60);
+        const seconds = Math.floor(rawSeconds % 60);
+
+        const formattedSeconds = seconds < 10 ? `0${seconds}` : String(seconds);
+        return `${minutes}:${formattedSeconds}`
+    }
+</script>
+
