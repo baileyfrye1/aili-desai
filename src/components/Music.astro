@@ -9,7 +9,7 @@ import Pause from "../assets/pause.svg";
 <section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
     <div class="container">
         <div class="music-player">
-            <h2 class="music-player__title">Music</h3>
+            <h2 class="music-player__title">Music</h2>
             <div class="music-player__controls">
                 <button class="music-player__control music-player__control--prev">
                     <ChevronLeft />
@@ -22,8 +22,8 @@ import Pause from "../assets/pause.svg";
                     <ChevronRight />
                 </button>
             </div>
-            <audio src="/music/defeat.mp3" class="music-player__audio"></audio>
-            <h4 class="music-player__track-title">Before The Battle</h4>
+            <audio preload="none" src="/music/defeat.mp3" class="music-player__audio"></audio>
+            <p class="music-player__track-title">Before The Battle</p>
             <div class="music-player__timeline">
                 <div class="music-player__progress-container">
                     <div class="music-player__progress-bar"></div>
