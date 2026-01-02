@@ -1,11 +1,14 @@
 ---
 import romanClayGreen from '../assets/roman-clay-green.webp'
-import Wave from '../assets/wave.svg';
+import romanClayCream from '../assets/roman-clay-cream.webp'
 import ContactForm from './ContactForm.astro';
 ---
 
 <section id="contact" class="contact" style={{"--contact-bg": `url(${romanClayGreen.src})`}}>
-    <Wave class="wave wave--flipped" />
+    <div class="wave wave--flipped">
+        <img src={romanClayCream.src} alt="" loading="lazy" />
+        <div class="wave-bg"></div>
+    </div>
     <div class="container">
         <h3 class="contact__title">Get in Touch</h3>
         <ContactForm />

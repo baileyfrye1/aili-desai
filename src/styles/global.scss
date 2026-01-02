@@ -43,4 +43,26 @@
   left: 0;
   z-index: 1;
   width: 100%;
+  aspect-ratio: 1440 / 149;
+  mask-image: url("/src/assets/wave.svg");
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  overflow: hidden;
+
+  img {
+    position: relative;
+    z-index: 1;
+    object-position: left top;
+    width: 100%;
+    opacity: 0.6;
+  }
+
+  .wave-bg {
+    background-color: var(--clr-neutral-200);
+    height: 400px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }

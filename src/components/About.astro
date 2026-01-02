@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets'
 import aboutImage from '../assets/about-image.jpg'
 import romanClayGreen from '../assets/roman-clay-green.webp'
-import Wave from '../assets/wave.svg';
+import romanClayCream from '../assets/roman-clay-cream.webp'
 ---
 <section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
     <div class="container">
@@ -16,7 +16,10 @@ import Wave from '../assets/wave.svg';
         </div>
         <Image loading="lazy" src={aboutImage} class="about__image" alt="Aili playing a piano from a side angle" height={640} />
     </div>
-    <Wave class="wave" />
+    <div class="wave">
+        <img src={romanClayCream.src} alt="" loading="lazy">
+        <div class="wave-bg"></div>
+    </div>
 </section>
 
 <style lang="scss">
