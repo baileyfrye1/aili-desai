@@ -55,6 +55,8 @@
     object-position: left top;
     width: 100%;
     opacity: 0.6;
+    aspect-ratio: 2000 / 208;
+    object-fit: cover;
   }
 
   .wave-bg {
