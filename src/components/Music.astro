@@ -11,14 +11,14 @@ import Pause from "../assets/pause.svg";
         <div class="music-player">
             <h2 class="music-player__title">Music</h2>
             <div class="music-player__controls">
-                <button class="music-player__control music-player__control--prev">
+                <button class="music-player__control music-player__control--prev" aria-label="Previous song">
                     <ChevronLeft />
                 </button>
-                <button class="music-player__control--play-toggle">
+                <button class="music-player__control--play-toggle" aria-label="Play music">
                     <img class="music-player__control--play-icon" src={Play.src} alt="Play button">
                     <img class="music-player__control--pause-icon" hidden src={Pause.src} alt="Pause button">
                 </button>
-                <button class="music-player__control music-player__control--next">
+                <button class="music-player__control music-player__control--next" aria-label="Next song">
                     <ChevronRight />
                 </button>
             </div>
@@ -26,7 +26,7 @@ import Pause from "../assets/pause.svg";
             <p class="music-player__track-title">Before The Battle</p>
             <div class="music-player__timeline">
                 <div class="music-player__progress-container">
-                    <div class="music-player__progress-bar"></div>
+                    <div class="music-player__progress-bar" role="progressbar" aria-label="Song progress"></div>
                 </div>
                 <p class="music-player__duration"><span class="music-player__current-time">-:--</span> / <span class="music-player__total-time">-:--</span></p>
             </div>
