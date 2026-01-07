@@ -21,4 +21,10 @@ export default defineConfig({
   ],
 
   adapter: netlify(),
+
+  vite: {
+    server: {
+      allowedHosts: ["devserver-preview--ailidesai.netlify.app"],
+    },
+  },
 });
