@@ -24,7 +24,6 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response(JSON.stringify(await fetchSongs()), {
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "no-store",
       },
     });
   }
@@ -32,7 +31,6 @@ export const GET: APIRoute = async ({ url }) => {
   return new Response(JSON.stringify(await fetchSongs()), {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=3600",
     },
   });
 };
