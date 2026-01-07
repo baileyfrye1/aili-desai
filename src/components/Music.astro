@@ -1,18 +1,9 @@
 ---
-import { sanityClient } from 'sanity:client';
-
 import romanClayCream from "../assets/roman-clay-cream.webp"
 import ChevronLeft from "../assets/chevron-left.svg";
 import ChevronRight from "../assets/chevron-right.svg";
 import Play from "../assets/play.svg";
 import Pause from "../assets/pause.svg";
-import { type Song } from '../types/Song';
-
-const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
-    _id,
-    title,
-    "audioUrl": song.asset->url
-}`);
 ---
 
 <section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
@@ -31,18 +22,13 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
                     <ChevronRight />
                 </button>
             </div>
-            <div id="player-wrapper" data-tracks={JSON.stringify(songs.map((song) => ({
-                title: song.title,
-                url: song.audioUrl,
-                })))}>
-                <audio preload="none" src={songs[0].audioUrl} class="music-player__audio"></audio>
-                <p class="music-player__track-title">{songs[0].title}</p>
-                <div class="music-player__timeline">
-                    <div class="music-player__progress-container">
-                        <div class="music-player__progress-bar" role="progressbar" aria-label="Song progress"></div>
-                    </div>
-                    <p class="music-player__duration"><span class="music-player__current-time">-:--</span> / <span class="music-player__total-time">-:--</span></p>
+            <audio preload="none" src="" class="music-player__audio"></audio>
+            <p class="music-player__track-title">Thought</p>
+            <div class="music-player__timeline">
+                <div class="music-player__progress-container">
+                    <div class="music-player__progress-bar" role="progressbar" aria-label="Song progress"></div>
                 </div>
+                <p class="music-player__duration"><span class="music-player__current-time">-:--</span> / <span class="music-player__total-time">-:--</span></p>
             </div>
         </div>
     </div>
@@ -131,7 +117,6 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
             &__timeline {
                 width: 100%;
                 margin-top: 2rem;
-                text-align: left;
 
                 .music-player__progress-container {
                     height: 0.75rem;
@@ -156,11 +141,6 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
                     margin: 0.5rem 0 0 0.5rem;
                 }
             }
-        }
-
-        #player-wrapper {
-            width: 100%;
-            text-align: center;
         }
     }
 
@@ -198,8 +178,9 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
 
 <script>
     type tracksList = {
+        _id: string,
         title: string,
-        url: string
+        audioUrl: string
     }[]
 
     const prevBtn = document.querySelector(".music-player__control--prev") as HTMLButtonElement;
@@ -211,13 +192,19 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
     const progressBar = document.querySelector(".music-player__progress-bar") as HTMLDivElement;
     const currentTime = document.querySelector(".music-player__current-time") as HTMLSpanElement;
 
-    const tracksData = document.querySelector("#player-wrapper") as HTMLDivElement;
     const totalTime = document.querySelector(".music-player__total-time") as HTMLSpanElement;
     const trackTitle = document.querySelector(".music-player__track-title") as HTMLHeadingElement;
     const audio = document.querySelector(".music-player__audio") as HTMLAudioElement;
 
-    let tracks: tracksList = JSON.parse(tracksData.dataset.tracks!) as tracksList;
+    let tracks: tracksList = [];
     let index = 0;
+
+    (async() => {
+        const res = await fetch("/api/tracks.json");
+        tracks = await res.json();
+        if (tracks.length) setSong(index);
+    })()
+
 
     playBtn?.addEventListener("click", () => {
         if (playBtn.classList.contains("is-playing")) {
@@ -282,7 +269,7 @@ const songs = await sanityClient.fetch<Song[]>(`*[_type=="song"]{
     function setSong(i: number) {
         index = (i + tracks.length) % tracks.length;
 
-        audio.src = tracks[index].url;
+        audio.src = tracks[index].audioUrl;
         trackTitle.innerText = tracks[index].title;
         totalTime.innerText = "-:--";
         currentTime.innerText = "-:--";
