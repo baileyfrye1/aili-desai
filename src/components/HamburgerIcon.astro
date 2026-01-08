@@ -1,0 +1,41 @@
+<button class="mobile-button" aria-expanded="false" aria-label="Open mobile navigation menu">
+    <span class="mobile-button__line"></span>
+    <span class="mobile-button__line"></span>
+    <span class="mobile-button__line"></span>
+</button>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+    .mobile-button {
+        display: flex;
+        flex-direction: column;
+        width: 2rem;
+        gap: .4rem;
+        cursor: pointer;
+        position: relative;
+
+        &__line {
+            height: 2px;
+            width: 80%;
+            background-color: var(--clr-dark-700);
+            display: inline-block;
+            transition: width 0.3s;
+            border-radius: var(--border-lg);
+        }
+        &__line:nth-child(2) {
+            width: 100%;
+        }
+
+        &:hover {
+            .mobile-button__line {
+                width: 100%;
+            }
+        }
+    }
+
+    @include m.mq(medium) {
+        .mobile-button {
+            display: none;
+        }
+    }
+</style>

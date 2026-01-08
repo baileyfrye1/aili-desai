@@ -7,8 +7,10 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
 <section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
     <div class="container">
         <div class="about-body flow">
-            <h1 class="about__title">Aili Desai is a</h2>
-            <h1 class="about__title">composer</h1>
+            <h1 class="about__title" aria-label="Aili Desai is a composer">Aili Desai is a</h1>
+            <div class="title-wrapper">
+                <span class="about__title">composer</span>
+            </div>
             <p>specializing in music for film, television and media. Aili is known for the emotional storytelling and character empathy present in her scores.</p>
             <p>Aili started playing classical piano at the age of 6, and grew up listening to the music from both her parents’ generation and her own, including James Taylor, The Carpenters, Sara Bareilles, Norah Jones, Taylor Swift, OneRepublic, and others. In her teenage years, Aili developed an interest in songwriting.</p>
             <p>In the early part of her career, she lived and worked in Nashville, where she was recognized by NSAI (Nashville Songwriters Association International) for excellence in songwriting. She became an involved member of the songwriting and music community, both as songwriter and working in the music touring business for several years. Aili worked for Level Group as a Touring Department Assistant, handling the logistics for multiple touring bands simultaneously. She also worked for Live Nation as a Production Runner, assisting the tour teams of major artists including Wiz Khalifa, Kendrick Lamar, Halsey, Train, and the Red Hot Chili Peppers.</p>
@@ -33,7 +35,12 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
         .container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 4rem;
+        }
+
+        &-body {
+            max-width: 80ch;
         }
 
         &::after {
@@ -48,12 +55,6 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
             position: relative;
             display: inline-block;
 
-            &:nth-child(2) {
-                margin-bottom: 1.5rem;
-                &::after {
-                    transition: width 1s 0.3s;
-                }
-            }
 
             &::after {
                 content: "";
@@ -64,10 +65,18 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
                 left: 0;
                 background-color: var(--clr-neutral-100);
                 transition: width 1s;
+                transform-origin: left;
             }
 
             &--active::after {
                 width: 100%;
+            }
+        }
+
+        .title-wrapper {
+            margin-bottom: 1.5rem;
+            .about__title::after {
+                transition: width 1s 0.3s;
             }
         }
 
@@ -76,7 +85,7 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
         }
     }
 
-    @include m.mq(small) {
+    @include m.mq(large) {
         .about {
             padding: 6rem 0 15.3125rem 0;
             .container {
