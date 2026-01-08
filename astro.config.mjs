@@ -7,8 +7,11 @@ import sanity from "@sanity/astro";
 
 import netlify from "@astrojs/netlify";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
+  site: "https://ailidesai.com",
   integrations: [
     react(),
     sanity({
@@ -18,6 +21,7 @@ export default defineConfig({
       apiVersion: "2026-01-07",
       studioBasePath: "/admin",
     }),
+    sitemap(),
   ],
 
   adapter: netlify(),
