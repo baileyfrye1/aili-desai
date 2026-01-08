@@ -3,15 +3,10 @@ import Instagram from '../assets/instagram-logo.svg'
 import { links } from '../utils/links';
 ---
 
-<button class="mobile" aria-expanded="false" aria-label="Open mobile navigation menu">
-    <span class="mobile__line"></span>
-    <span class="mobile__line"></span>
-    <span class="mobile__line"></span>
-</button>
 <div class="mobile-menu">
     <ul class="mobile__links">
         {links.map((link) => (
-        <li class="mobile__link"><a href={link.href}>{link.label}</a></li>
+        <a href={link.href} class="mobile__link"><li>{link.label}</li></a>
         ))}
     </ul>
     <div class="mobile__social">
@@ -25,44 +20,29 @@ import { links } from '../utils/links';
     $border-color: color.adjust(#e9e3d9, $lightness: -20%);
 
     .mobile {
-        display: flex;
-        flex-direction: column;
-        width: 2rem;
-        gap: .4rem;
-        cursor: pointer;
-        position: relative;
-
-        &__line {
-            height: 2px;
-            width: 80%;
-            background-color: var(--clr-dark-700);
-            display: inline-block;
-            transition: width 0.3s;
-            border-radius: var(--border-lg);
-        }
-        &__line:nth-child(2) {
-            width: 100%;
-        }
-
-        &:hover {
-            .mobile__line {
-                width: 100%;
-            }
-        }
-
         &-menu {
-            position: absolute;
             width: 100%;
-            height: 0;
-            background-color: var(--clr-neutral-200);
-            top: 3.75rem;
-            left: 0;
-            border-radius: 0 0 var(--border-md) var(--border-md);
-            border-top: 1px solid $border-color;
+            max-height: 0;
+            visibility: hidden;
             overflow: hidden;
-            opacity: 0;
-            padding: 0 2rem;
-            transition: height 0.3s, opacity 0s 0.3s, padding 0.3s;
+            margin-top: 0;
+            transition: margin 0.3s, max-height 0.5s, padding 0.3s;
+            position: relative;
+            padding-top: 0;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: $border-color;
+
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.3s 0.2s ease;
+            }
 
             .mobile__links {
                 display: flex;
@@ -74,8 +54,6 @@ import { links } from '../utils/links';
                 .mobile__link {
                     width: 100%;
                     font-size: var(--font-400);
-                    opacity: 0;
-                    transition: opacity 0.3s;
                 }
             }
 
@@ -85,29 +63,32 @@ import { links } from '../utils/links';
 
 
             &--active {
-                opacity: 1;
-                height: 15rem;
-                padding: 1rem 2rem;
+                max-height: 300px;
+                visibility: visible;
+                margin-top: 1rem;
+                padding-top: 1rem;
 
-                transition: height 0.3s, opacity 0s 0s, padding 0.3s;
-
-                .mobile__links {
-                    .mobile__link {
-                        opacity: 1;
-                        transition: opacity 0.3s 0.1s;
-                    }
+                &::before {
+                    transform: scaleX(1);
                 }
             }
         }
     }
 
     @include m.mq(medium) {
-        .mobile {
+        .mobile-menu {
             display: none;
-
-            &-menu {
-                display: none;
-            }
         }
     }
 </style>
+
+<script>
+    const links = document.querySelectorAll(".mobile__link") as NodeListOf<HTMLLIElement>;
+    const mobileMenu = document.querySelector(".mobile-menu") as HTMLDivElement;
+
+    links.forEach((link) => {
+        link.addEventListener("click", () => {
+            mobileMenu.classList.remove("mobile-menu--active");
+        })
+    })
+</script>
