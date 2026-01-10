@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import heroImage from '../assets/hero-image.jpg'
+import { Picture } from "astro:assets";
+import heroImage from '../assets/hero-image3.webp'
 ---
 <section id="hero" class="hero">
-    <Image width={2840} src={heroImage} alt="Aili playing a piano" class="hero__image" loading="eager" />
+    <Picture src={heroImage} layout="constrained" formats={["webp", "avif"]} alt="Aili playing a piano" class="hero__image" loading="eager" />
 </section>
 
 <style lang="scss">
@@ -14,14 +14,15 @@ import heroImage from '../assets/hero-image.jpg'
         z-index: 0;
         &::after {
             @include m.pseudo-fill;
-            background-color: var(--clr-dark-700);
-            opacity: 0.2;
+            background-color: black;
+            opacity: 0.3;
             z-index: 1;
         }
 
         &__image {
             height: 100%;
             object-fit: cover;
+            object-position: 20%;
         }
     }
 </style>
