@@ -1,0 +1,160 @@
+
+---
+import romanClayCream from "../assets/roman-clay-cream.webp"
+---
+
+<section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
+    <div class="container">
+        <iframe
+            width="800"
+            height="400"
+            class="reels"
+            src="https://play.reelcrafter.com/embed/d15b2bad-8dcd-4b55-bd33-db1a0c4b8fd0">
+        </iframe>
+    </div>
+</section>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+    @use "sass:color";
+
+    .music {
+        background-color: var(--clr-neutral-200);
+        padding-block: 6rem;
+        position: relative;
+
+        .container {
+            padding-inline: 0;
+            display: grid;
+            place-items: center;
+        }
+
+        &::after {
+            @include m.pseudo-fill;
+            background-image: var(--music-bg);
+            opacity: 0.6;
+            background-position: top;
+        }
+
+        &-player {
+            border-radius: var(--border-lg);
+            background-image: url('../assets/piano.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+
+            &__title {
+                color: var(--clr-neutral-100);
+                font-family: "Inria Serif";
+                font-size: var(--font-700);
+            }
+
+            &__controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 4rem;
+                width: 100%;
+
+                .music-player__control {
+                    width: 3rem;
+                    cursor: pointer;
+
+                    svg {
+                        fill: var(--clr-neutral-100);
+                    }
+
+                    &--play-toggle {
+                        border: 1px solid var(--clr-accent-200);
+                        background-color: rgba(95, 145, 186, 0.15);
+                        padding: 2rem;
+                        width: 7rem;
+                        border-radius: 100%;
+                        display: grid;
+                        place-items: center;
+                        transition: background-color 0.3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: rgba(95, 145, 186, 0.30);
+                        }
+
+                        svg {
+                            fill: var(--clr-accent-200);
+                        }
+                    }
+                }
+            }
+
+            &__track-title {
+                color: var(--clr-neutral-100);
+                font-family: "Playfair Display";
+                margin-top: 2rem;
+                font-size: var(--font-600);
+            }
+
+            &__timeline {
+                width: 100%;
+                margin-top: 2rem;
+
+                .music-player__progress-container {
+                    height: 0.75rem;
+                    border-radius: var(--border-lg);
+                    background-color: var(--clr-neutral-200);
+                    width: 100%;
+                    overflow: hidden;
+                    transition: height 0.2s;
+                    cursor: pointer;
+
+                    .music-player__progress-bar {
+                        width: 0;
+                        height: 100%;
+                        background-color: color.adjust(#5f91ba, $lightness: 15%);
+                        border-radius: var(--border-lg);
+                        // transition: width 1s;
+                    }
+                }
+
+                .music-player__duration {
+                    color: var(--clr-neutral-100);
+                    margin: 0.5rem 0 0 0.5rem;
+                }
+            }
+        }
+    }
+
+    @include m.mq(small) {
+        .music {
+            &-player {
+                width: 80%;
+                padding: 2rem 7rem;
+                margin-inline: auto;
+
+                &__controls {
+                    .music-player__control {
+                        width: 4rem;
+
+                        &--play-toggle {
+                            width: 9rem;
+                        }
+                    }
+                }
+
+                &__timeline {
+                    .music-player__progress-container {
+                        height: 0.5rem;
+                        transition: height 0.2s;
+
+                        &:hover {
+                            height: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>
+
