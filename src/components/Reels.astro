@@ -5,14 +5,13 @@ import romanClayCream from "../assets/roman-clay-cream.webp"
 
 <section id="music" class="music" style={{"--music-bg": `url(${romanClayCream.src})`}}>
     <div class="container">
+        <h2 class="music__title" aria-label="Music">Music</h2>
         <iframe
-            width="800"
-            height="400"
             class="reels"
             src="https://play.reelcrafter.com/embed/d15b2bad-8dcd-4b55-bd33-db1a0c4b8fd0"
             title="Aili Desai Featured Songs"
             loading="lazy"
-        >
+            >
         </iframe>
     </div>
 </section>
@@ -23,13 +22,28 @@ import romanClayCream from "../assets/roman-clay-cream.webp"
 
     .music {
         background-color: var(--clr-neutral-200);
-        padding-block: 6rem;
+        padding-block: 3rem 6rem;
         position: relative;
+        z-index: 1;
 
         .container {
             padding-inline: 0;
             display: grid;
             place-items: center;
+        }
+
+        &__title {
+            font-size: var(--font-700);
+            font-family: "Inria Serif";
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .reels {
+            height: 450px;
+            width: 350px;
+            overflow: hidden;
         }
 
         &::after {
@@ -131,6 +145,9 @@ import romanClayCream from "../assets/roman-clay-cream.webp"
 
     @include m.mq(small) {
         .music {
+            .reels {
+                width: 800px;
+            }
             &-player {
                 width: 80%;
                 padding: 2rem 7rem;
@@ -157,6 +174,12 @@ import romanClayCream from "../assets/roman-clay-cream.webp"
                     }
                 }
             }
+        }
+    }
+
+    @include m.mq(large) {
+        .music {
+            padding-block: 6rem;
         }
     }
 </style>

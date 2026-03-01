@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import '../styles/global.scss'
+import romanClayGreen from '../assets/roman-clay-green.webp'
 
 const { title } = Astro.props;
 ---
@@ -31,9 +32,22 @@ const { title } = Astro.props;
 </head>
 <body>
     <Navbar /> 
-    <main>
+    <main style={{"--main-bg": `url(${romanClayGreen.src})`}}>
         <slot />
     </main>
     <Footer />
 </body>
 </html>
+
+<style lang="scss">
+    @use "../styles/mixins" as m;
+
+    main {
+        position: relative;
+        &::after {
+            @include m.pseudo-fill;
+            background-image: var(--main-bg);
+            opacity: 0.4;
+        }
+    }
+</style>

@@ -67,4 +67,10 @@
     left: 0;
     top: 0;
   }
+
+  &--flipped {
+    top: -2px;
+    bottom: 0;
+    transform: rotate(180deg);
+  }
 }

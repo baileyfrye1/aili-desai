@@ -5,6 +5,10 @@ import romanClayGreen from '../assets/roman-clay-green.webp'
 import romanClayCream from '../assets/roman-clay-cream.webp'
 ---
 <section id="about" class="about" style={{"--about-bg": `url(${romanClayGreen.src})`}}>
+    <div class="wave wave--flipped">
+        <img src={romanClayCream.src} alt="" loading="lazy" />
+        <div class="wave-bg"></div>
+    </div>
     <div class="container">
         <div class="about-body flow">
             <h1 class="about__title" aria-label="Aili Desai is a composer">Aili Desai is a</h1>
@@ -18,10 +22,6 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
         </div>
         <Image loading="lazy" src={aboutImage} class="about__image" alt="Aili playing a piano from a side angle" height={640} />
     </div>
-    <div class="wave">
-        <img src={romanClayCream.src} alt="" loading="lazy">
-        <div class="wave-bg"></div>
-    </div>
 </section>
 
 <style lang="scss">
@@ -29,7 +29,7 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
 
     .about {
         background-color: var(--clr-primary-200);
-        padding: 6rem 0 10rem 0;
+        padding: 6rem 0 3rem;
         position: relative;
 
         .container {
@@ -41,12 +41,6 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
 
         &-body {
             max-width: 80ch;
-        }
-
-        &::after {
-            @include m.pseudo-fill;
-            background-image: var(--about-bg);
-            opacity: 0.4;
         }
 
         &__title {
@@ -87,7 +81,7 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
 
     @include m.mq(large) {
         .about {
-            padding: 6rem 0 15.3125rem 0;
+            padding: 15.3125rem 0 3rem 0;
             .container {
                 flex-direction: row;
                 gap: 7rem;
@@ -96,6 +90,12 @@ import romanClayCream from '../assets/roman-clay-cream.webp'
             &__title {
                 font-size: var(--font-800);
             }
+        }
+    }
+    
+    @include m.mq(xl) {
+        .about {
+            padding: 20.3125rem 0 3rem 0;
         }
     }
 </style>
