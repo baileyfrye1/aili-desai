@@ -3,7 +3,7 @@ import { Picture } from "astro:assets";
 import heroImage from '../assets/hero-image3.webp'
 ---
 <section id="hero" class="hero">
-    <Picture src={heroImage} layout="constrained" formats={["webp", "avif"]} alt="Aili playing a piano" class="hero__image" loading="eager" />
+    <Picture src={heroImage} layout="constrained" widths={[640, 960, 1280, 1536]} quality={60} formats={["avif", "webp"]} alt="Aili playing a piano" class="hero__image" loading="eager" />
 </section>
 
 <style lang="scss">
